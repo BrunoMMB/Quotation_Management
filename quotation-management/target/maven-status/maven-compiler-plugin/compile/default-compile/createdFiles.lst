@@ -1,0 +1,8 @@
+com\idp6\quotation_management\model\Quote.class
+com\idp6\quotation_management\model\StockFromStockManagement.class
+com\idp6\quotation_management\repository\QuoteRepository.class
+com\idp6\quotation_management\services\StockService.class
+com\idp6\quotation_management\QuotationManagementApplication.class
+com\idp6\quotation_management\controller\StockController.class
+com\idp6\quotation_management\model\Stock.class
+com\idp6\quotation_management\repository\StockRepository.class
