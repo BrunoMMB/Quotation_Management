@@ -1,7 +1,7 @@
 package com.idp6.quotation_management.model;
 
 public class Quotation_Management_Identification {
-    private String host = "192.168.0.102";
+    private String host = "192.168.1.11";
     private Integer port = 8081;
 
     public String getHost() {

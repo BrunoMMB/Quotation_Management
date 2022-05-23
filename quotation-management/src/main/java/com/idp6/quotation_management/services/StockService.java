@@ -46,11 +46,6 @@ public class StockService {
         boolean isAllowed = confirmStockManagement(allowedStockList, clientStock);
         if(clientStock != null)
         {
-            System.out.println("boolean isAllowed: "+isAllowed);
-            System.out.println("saveStockQuoteValidator is working");
-            System.out.println(allowedStockList);
-            System.out.println(clientStock.getStockId());
-            System.out.println("clientStock is not null, saved successfuly");
             stockRepository.save(clientStock);
         }else {
             System.out.println("clientStock is null, no saved");

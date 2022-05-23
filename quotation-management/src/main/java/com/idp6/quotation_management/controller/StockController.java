@@ -1,8 +1,6 @@
 package com.idp6.quotation_management.controller;
 
-import com.idp6.quotation_management.model.Quotation_Management_Identification;
-import com.idp6.quotation_management.model.Stock;
-import com.idp6.quotation_management.model.StockManagementDTO;
+import com.idp6.quotation_management.model.*;
 import com.idp6.quotation_management.repository.QuoteRepository;
 import com.idp6.quotation_management.repository.StockRepository;
 import com.idp6.quotation_management.services.ParsingService;
@@ -24,13 +22,13 @@ public class StockController {
     private StockRepository stockRepository;
 
     @Autowired
+    private QuoteRepository quoteRepository;
+
+    @Autowired
     private ParsingService parsingService;
 
     @Autowired
     StockService stockService = new StockService();
-    
-    @Autowired
-    private QuoteRepository quoteRepository;
 
     @RequestMapping("/save")
     @GetMapping                                     //todo checar se pode ser getmapping
@@ -74,8 +72,9 @@ public class StockController {
 
     @RequestMapping("/showStock")
     @GetMapping
-    public List<Stock> getStocks(@RequestBody String stockName){
-        return stockRepository.findByStock_stockId(stockName);
+    public List<Object> getStocks(@RequestBody String stockName){
+        System.out.println(stockName);
+        return quoteRepository.findByStockStockId(stockName);
     }
 }
 
