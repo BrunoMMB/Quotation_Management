@@ -10,6 +10,8 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.client.RestTemplate;
+
+import java.io.IOException;
 import java.util.List;
 
 
@@ -31,16 +33,16 @@ public class StockController {
     StockService stockService = new StockService();
 
     @RequestMapping("/save")
-    @GetMapping                                     //todo checar se pode ser getmapping
-    public void saveStockQuotes(@RequestBody Stock clientStock){
+    @GetMapping
+    public void saveStockQuotes(@RequestBody Stock clientStock) throws Exception {
         System.out.println("Sent client stock: "+ clientStock.toString());
         stockService.saveStockQuoteValidator(allowedStockList(), clientStock);
     }
-                                                    //todo checar se os valores sao nullos
+
     @RequestMapping("/get")
     @GetMapping
     @Cacheable(value = "Stock_Manager_Cache")
-    public String allowedStockList(){
+    public String allowedStockList() throws Exception {
         StockService stockService = new StockService();
         String cacheValue = stockService.stockManagerCache();
         return cacheValue;
@@ -48,13 +50,13 @@ public class StockController {
 
     @DeleteMapping("/stockcache")
     @CacheEvict(value = "Stock_Manager_Cache", allEntries = true)
-    public void renewCache(){
+    public void renewCache() throws Exception {
         allowedStockList();
     }
 
     @RequestMapping("/registerNewStock")
     @PostMapping
-    public void registerOnStock_Manager(@RequestBody StockManagementDTO smd){
+    public void registerOnStock_Manager(@RequestBody StockManagementDTO smd) throws Exception{
         Quotation_Management_Identification identification = new Quotation_Management_Identification();
         RestTemplate restTemplate = new RestTemplate();
         restTemplate.postForEntity("http://localhost:8080/notification", identification, String.class);
@@ -62,17 +64,16 @@ public class StockController {
         System.out.println(smd);
         restTemplate.postForEntity(STOCK_MANAGEMENT, smd, String.class);
     }
-                                                    //todo mostrar todos os quotes salvos
 
     @RequestMapping("/showAllStocks")
     @GetMapping
-    public List<Stock> getStocks(){
+    public List<Stock> getStocks() throws Exception{
         return stockRepository.findAll();
     }
 
     @RequestMapping("/showStock")
     @GetMapping
-    public List<Object> getStocks(@RequestBody String stockName){
+    public List<Object> getStocks(@RequestBody String stockName) throws Exception{
         System.out.println(stockName);
         return quoteRepository.findByStockStockId(stockName);
     }

@@ -27,11 +27,9 @@ public class StockService {
     private static final String STOCK_MANAGEMENT_IDENTIFICATOR = "http://localhost:8080/notification";
 
     public boolean confirmStockManagement(String allowedStocks, Stock wishedStock){
-        //convertendo informações para array
         Gson gson = new Gson();
         StockManagementDTO[] allowedStocksArray = gson.fromJson(allowedStocks, StockManagementDTO[].class);
 
-        //checando se o array possui certo valor desejado
         Stream<StockManagementDTO> stream = Arrays.stream(allowedStocksArray);
         return stream.anyMatch(StockManagementDTO -> StockManagementDTO.id.equals(wishedStock.getStockId()) == true);
     }
